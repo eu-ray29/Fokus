@@ -64,4 +64,4 @@ Este projeto está sob a licença MIT. Sinta-se livre para usá-lo e modificá-l
 
 ---
 
-Feito com a Alura por Raynara Ferreira no curso de JavaScript.
+Feito por Raynara Ferreira no curso de JavaScript da Alura.
