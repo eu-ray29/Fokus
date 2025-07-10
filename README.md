@@ -11,7 +11,7 @@ Fokus é um aplicativo de timer baseado na técnica Pomodoro, que ajuda a melhor
 - 🔁 Contagem regressiva automática com alertas sonoros ao fim de cada ciclo.
 - 🎵 Alternar música ambiente de fundo.
 - 🎨 Mudança visual e textual conforme o modo selecionado (foco, pausa curta ou longa).
-- 🖱 Botões para iniciar, pausar e resetar o cronômetro.
+- 🖱 Botões para iniciar, pausar o cronômetro.
 
 ## 🧩 Tecnologias utilizadas
 
@@ -21,7 +21,7 @@ Fokus é um aplicativo de timer baseado na técnica Pomodoro, que ajuda a melhor
 
 ## 📁 Estrutura de diretórios esperada
 
-# plaintext
+```plaintext
 /
 ├── index.html
 ├── style.css
@@ -35,33 +35,33 @@ Fokus é um aplicativo de timer baseado na técnica Pomodoro, que ajuda a melhor
 │   ├── play.wav
 │   ├── pause.mp3
 │   └── beep.mp3
-
+```
 
 ## 🧠 Lógica principal
 
 - O tempo é definido em segundos conforme o modo escolhido.
-
-- A função setInterval() atualiza o timer a cada segundo.
-
+- A função `setInterval()` atualiza o timer a cada segundo.
 - O modo ativo altera o layout e exibe mensagens motivacionais específicas.
-
 - Sons são executados ao iniciar, pausar e finalizar o tempo.
+- A função `mostrarTempo()` converte os segundos em formato mm:ss.
 
-- A função mostrarTempo() converte os segundos em formato mm:ss.
+
 
 ## 📌 Como usar
 
-bash
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/seu-usuario/fokus.git
+   ```
 
-- git clone https://github.com/seu-usuario/fokus.git
+2. Abra o arquivo `index.html` em seu navegador.
 
-- Abra o arquivo index.html em seu navegador.
-
-- Escolha um modo (Foco, Curto ou Longo) e pressione "Começar".
+3. Escolha um modo (Foco, Curto ou Longo) e pressione "Começar".
 
 ## 📄 Licença
 
 Este projeto está sob a licença MIT. Sinta-se livre para usá-lo e modificá-lo como quiser.
 
-Feito com ❤️ por [Raynara Ferreira] no curso da Alura
+---
 
+Feito com a Alura por [Raynara] no curso de JavaScript.
