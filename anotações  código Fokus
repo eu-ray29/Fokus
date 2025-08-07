@@ -1,0 +1,75 @@
+
+const btnAdicionarTarefa = document.querySelector('.app__button--add-task'); // Seleciona o botão de adicionar tarefa
+const formAdicionarTarefa = document.querySelector('.app__form-add-task'); // Seleciona o formulário de adicionar tarefa
+const textarea = document.querySelector('.app__form-textarea'); // Seleciona o textarea dentro do formulário de adicionar tarefa
+const ulTarefas = document.querySelector('.app__section-task-list'); // Seleciona a lista não ordenada onde as tarefas serão adicionadas
+
+
+const tarefas = JSON.parse(localStorage.getItem('tarefas')) || []; // Recupera as tarefas do localStorage ou inicializa como um array vazio
+
+function atualizarTarefas() {
+    localStorage.setItem('tarefas', JSON.stringify(tarefas));
+}
+
+function criarElementoTarefa(tarefa) {
+    const li = document.createElement('li'); // Cria um elemento li para a tarefa
+    li.classList.add('app__section-task-list-item');// Adiciona a classe para estilização
+
+    const svg = document.createElement('svg'); // Cria um elemento svg para o ícone de status
+    svg.innerHTML = `
+        <svg class="app__section-task-icon-status" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="12" fill="#FFF"></circle>
+            <path d="M9 16.1719L19.5938 5.57812L21 6.98438L9 18.9844L3.42188 13.4062L4.82812 12L9 16.1719Z" fill="#01080E"></path>
+        </svg>
+    `// Adiciona o conteúdo SVG para o ícone de status
+
+    const paragrafo = document.createElement('p');// Cria um elemento p para a descrição da tarefa
+    paragrafo.textContent = tarefa.descricao; // Define o texto do parágrafo como a descrição da tarefa
+    paragrafo.classList.add('app__section-task-list-item-description'); // Adiciona a classe para estilização
+
+    const botao = document.createElement('button'); // Cria um botão para editar a tarefa
+    botao.classList.add('app_button-edit'); // Adiciona a classe para estilização
+
+    botao.onclick = () => {
+        const novaDescricao = prompt('Qual é novo nome da tarefa'); // Solicita ao usuário uma nova descrição para a tarefa
+        console.log('Nova descrição da tarefa:', novaDescricao); // Exibe a nova descrição no console
+        if (novaDescricao) {
+            paragrafo.textContent = novaDescricao; // Atualiza o texto do parágrafo com a nova descrição
+            tarefa.descricao = novaDescricao;// Atualiza a descrição da tarefa no objeto
+            atualizarTarefas();// Atualiza as tarefas no localStorage 
+        }
+    }// Define a função a ser executada quando o botão for clicado
+
+
+    const imagemDoBotao = document.createElement('img'); // Cria um elemento img para o ícone do botão
+    imagemDoBotao.setAttribute('src', '/imagens/edit.png'); // Define o caminho da imagem do botão
+    botao.append(imagemDoBotao); // Adiciona a imagem ao botão
+
+    li.append(svg); // Adiciona o ícone de status ao item da lista
+    li.append(paragrafo); // Adiciona a descrição da tarefa ao item da lista
+    li.append(botao); // Adiciona o botão de editar ao item da lista
+
+    return li; // Retorna o item da lista completo com a tarefa
+} // Função para criar o elemento da tarefa
+
+btnAdicionarTarefa.addEventListener('click', () => {
+    formAdicionarTarefa.classList.toggle('hidden'); // Alterna a visibilidade do formulário de adicionar tarefa
+}); // Adiciona um evento de clique no botão para mostrar/ocultar o formulário
+
+formAdicionarTarefa.addEventListener('submit', (evento) => {
+    evento.preventDefault(); // Previne o comportamento padrão do formulário
+    const tarefa = {
+        descricao: textarea.value // Cria um objeto tarefa com a descrição do textarea
+    }
+    tarefas.push(tarefa); // Adiciona a nova tarefa ao array de tarefas
+    const elementoTarefa = criarElementoTarefa(tarefa); // Cria o elemento da tarefa usando a função definida acima
+    ulTarefas.append(elementoTarefa); // Adiciona o elemento da tarefa à lista de tarefas
+    atualizarTarefas(); // Salva as tarefas no localStorage
+    textarea.value = ''; // Limpa o textarea após adicionar a tarefa
+    formAdicionarTarefa.classList.add('hidden'); // Esconde o formulário de adicionar tarefa após o envio
+}); // Adiciona um evento de submit no formulário para adicionar a tarefa
+
+tarefas.forEach(tarefa => {
+    const elementoTarefa = criarElementoTarefa(tarefa); // Cria o elemento da tarefa para cada tarefa existente
+    ulTarefas.append(elementoTarefa); // Adiciona o elemento da tarefa à lista de tarefas
+}); // Itera sobre as tarefas existentes e as adiciona à lista de tarefas na página

@@ -88,6 +88,7 @@ const conteagemRegressiva = () => {
     if(tempoEmSegundos <= 0){
         audioTempoFinalizado.play()
         alert('tempo finalizado')
+        
         zerar()
         return
     }
